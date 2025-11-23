@@ -1,0 +1,124 @@
+{
+  "users": [
+    {
+      "id": "e4f2",
+      "Fname": "Adil",
+      "Lname": "Aadhy",
+      "email": "adil123@gmail.com",
+      "password": "@Aad1l9895",
+      "cpassword": "@Aad1l9895"
+    },
+    {
+      "id": "8480",
+      "Fname": "aadhy",
+      "Lname": "adil",
+      "email": "adil11@gamil.com",
+      "password": "@Adil2134",
+      "cpassword": "@Adil2134"
+    },
+    {
+      "id": "f349",
+      "Fname": "Mohd",
+      "Lname": "Ayad",
+      "email": "ayad12@gamil.com",
+      "password": "@Ayad1234",
+      "cpassword": "@Ayad1234"
+    },
+    {
+      "id": "a16b",
+      "Fname": "adil",
+      "Lname": "adil",
+      "email": "adil111@gmail.com",
+      "password": "12341234",
+      "cpassword": "12341234"
+    },
+    {
+      "id": "1763790369716",
+      "firstName": "adil",
+      "lastName": "",
+      "email": "adil098@gamil.com",
+      "password": "111232"
+    },
+    {
+      "id": 1763879504593,
+      "firstName": "abdul",
+      "lastName": "rahman",
+      "email": "abdul12@gmail.com",
+      "password": "121212"
+    }
+  ],
+  "products": [
+    {
+      "product_id": 1,
+      "name": "Madrid Varsity T-shirt",
+      "price": "Rs. 1,999.00",
+      "image": "src/assets/pic1.webp",
+      "category": "tshirts",
+      "id": "6855"
+    },
+    {
+      "product_id": 2,
+      "name": "Catalan Vintage",
+      "price": "Rs. 1,799.00",
+      "image": "src/assets/pic2.webp",
+      "category": "tshirts",
+      "id": "60ab"
+    },
+    {
+      "product_id": 3,
+      "name": "Galacticos Vintage",
+      "price": "Rs. 1,799.00",
+      "image": "src/assets/pic3.webp",
+      "category": "tshirts",
+      "id": "cdee"
+    },
+    {
+      "product_id": 4,
+      "name": "England Vintage",
+      "price": "Rs. 1,799.00",
+      "image": "src/assets/pic4.webp",
+      "category": "tshirts",
+      "id": "d7a2"
+    },
+    {
+      "product_id": 5,
+      "name": "Cold Palmer",
+      "price": "Rs. 1,499.00",
+      "image": "src/assets/pic5.webp",
+      "category": "tshirts",
+      "id": "645b"
+    },
+    {
+      "product_id": 6,
+      "name": "Suiii tshirts",
+      "price": "Rs. 1,499.00",
+      "image": "src/assets/pic6.webp",
+      "category": "tshirts",
+      "id": "3998"
+    },
+    {
+      "product_id": 7,
+      "name": "Portugal Pure Leather Jacket",
+      "price": "Rs. 12,999.00",
+      "image": "src/assets/jacket1.webp",
+      "category": "jackets",
+      "id": "jac1"
+    },
+    {
+      "product_id": 8,
+      "name": "The Royals Pure Leather Jacket",
+      "price": "Rs. 12,999.00",
+      "image": "src/assets/jacket2.webp",
+      "category": "jackets",
+      "id": "jac2"
+    },
+    {
+      "product_id": 9,
+      "name": "Argentina Pure Leather Jacket",
+      "price": "Rs. 12,999.00",
+      "image": "src/assets/jacket3.webp",
+      "category": "jackets",
+      "id": "jac3"
+    }
+  ]
+}
