@@ -1,11 +1,15 @@
-// Checkout.js - New File
+// Checkout.js - Updated with UPI Payment Method
 import React, { useState } from 'react';
 import Navbar from '../Components/Navbar';
 import { useCart } from '../Context/CartProvider';
 import { useNavigate } from 'react-router-dom';
+import GPAY from '../assets/gpay.png'
+import PHONEPE from '../assets/phonepe.png'
+import PAYTM from '../assets/paytm.png'
+import BHIM from '../assets/bhim.png'
 
 function Checkout() {
-  const { cart, getCartTotal, clearCart } = useCart();
+  const { cart, getCartTotal, clearCart, getItemTotal } = useCart();
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
@@ -17,10 +21,7 @@ function Checkout() {
     city: '',
     state: '',
     zipCode: '',
-    cardNumber: '',
-    cardName: '',
-    expiryDate: '',
-    cvv: ''
+    upiId: ''
   });
 
   const [loading, setLoading] = useState(false);
@@ -197,69 +198,55 @@ function Checkout() {
                 </div>
               </div>
 
-              {/* Payment Information */}
+              {/* UPI Payment Information */}
               <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Payment Information</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">UPI Payment</h2>
                 
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Card Number *
+                      UPI ID *
                     </label>
                     <input
                       type="text"
-                      name="cardNumber"
-                      value={formData.cardNumber}
+                      name="upiId"
+                      value={formData.upiId}
                       onChange={handleInputChange}
-                      placeholder="1234 5678 9012 3456"
+                      placeholder="yourname@upi"
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
+                    <p className="text-sm text-gray-500 mt-1">
+                      Enter your UPI ID (e.g., name@paytm, name@ybl, name@okicici)
+                    </p>
                   </div>
                   
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Name on Card *
-                    </label>
-                    <input
-                      type="text"
-                      name="cardName"
-                      value={formData.cardName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                    />
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <h3 className="font-medium text-yellow-800 mb-2">How to Pay with UPI</h3>
+                    <ul className="text-sm text-yellow-700 space-y-1">
+                      <li>• Enter your UPI ID above</li>
+                      <li>• Click "Pay Now" to proceed</li>
+                      <li>• You will be redirected to your UPI app</li>
+                      <li>• Complete the payment in your UPI app</li>
+                    </ul>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Expiry Date *
-                      </label>
-                      <input
-                        type="text"
-                        name="expiryDate"
-                        value={formData.expiryDate}
-                        onChange={handleInputChange}
-                        placeholder="MM/YY"
-                        required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                      />
+
+                  <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div className="flex space-x-2">
+                      <img src={GPAY}
+                           alt="Google Pay" 
+                           className="h-8 w-auto" />
+                      <img src={PHONEPE} 
+                           alt="PhonePe" 
+                           className="h-8 w-auto" />
+                      <img src={PAYTM}
+                           alt="Paytm" 
+                           className="h-8 w-auto" />
+                      <img src={BHIM} 
+                           alt="BHIM" 
+                           className="h-8 w-auto" />
                     </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        CVV *
-                      </label>
-                      <input
-                        type="text"
-                        name="cvv"
-                        value={formData.cvv}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                      />
-                    </div>
+                    <span className="text-sm text-gray-600">All UPI apps supported</span>
                   </div>
                 </div>
               </div>
@@ -281,8 +268,7 @@ function Checkout() {
               
               <div className="space-y-3 mb-6">
                 {cart.map((item) => {
-                  const itemPrice = parseFloat(item.price.toString().replace(/[^\d.]/g, '').replace(/,/g, '')) || 0;
-                  const itemTotal = itemPrice * item.quantity;
+                  const itemTotal = getItemTotal(item);
                   
                   return (
                     <div key={item.cartId} className="flex justify-between items-center">

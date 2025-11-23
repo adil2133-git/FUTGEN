@@ -1,7 +1,9 @@
 import React from 'react'
 import banner from '../assets/banner.webp'
+import { useNavigate } from 'react-router-dom'
 
 function MainBanner() {
+  const navigate = useNavigate()
   return (
     <div className="relative h-screen min-h-[600px] overflow-hidden">
   <img 
@@ -17,7 +19,8 @@ function MainBanner() {
       <p className="text-xl md:text-2xl mb-8 max-w-2xl">
         Premium streetwear for the modern football enthusiast
       </p>
-      <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105">
+      <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105"
+      onClick={() => navigate('/product')}>
         SHOP NOW
       </button>
     </div>

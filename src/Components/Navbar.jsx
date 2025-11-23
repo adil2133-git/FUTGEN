@@ -1,4 +1,4 @@
-// Navbar.js - Fixed with clean layout
+// Navbar.js - Fixed with clean layout and larger logo
 import React, { useState, useRef, useEffect } from "react";
 import FUTGEN from '../assets/FUTGEN.png'
 import { useNavigate } from 'react-router-dom'
@@ -20,7 +20,7 @@ const menuItems = [
     ]
   },
   { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "#" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export default function Navbar({ logoSrc = "/logo.png" }) {
@@ -109,12 +109,12 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
               </button>
             </div>
 
-            {/* Center: Logo */}
+            {/* Center: Logo - Increased size */}
             <div className="absolute left-1/2 transform -translate-x-1/2">
               <img
                 src={FUTGEN}
                 alt="Logo"
-                className="h-12 md:h-14 object-contain cursor-pointer"
+                className="h-16 md:h-20 object-contain cursor-pointer"
                 onClick={() => navigate('/')}
               />
             </div>
