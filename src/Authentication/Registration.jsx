@@ -4,14 +4,14 @@ import { SignupValidation } from './SignupValidation'
 import SIGNUP from '../assets/SIGNUP.webp'
 import { useNavigate } from 'react-router-dom'
 import SimpleNavbar from '../Components/SimpleNavbar'
-import { useAuth } from '../Context/AuthProvider' 
+import { useAuth } from '../Context/AuthProvider'
 
 const initialValues = {
-  Fname:'',
-  Lname:'',
-  email:'',
-  password:'',
-  cpassword:''
+  Fname: '',
+  Lname: '',
+  email: '',
+  password: '',
+  cpassword: ''
 }
 
 function Registration() {
@@ -20,23 +20,22 @@ function Registration() {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     clearError()
-    
-    // Check if passwords match (additional client-side validation)
+
     if (values.password !== values.cpassword) {
       alert('Passwords do not match')
       setSubmitting(false)
       return
     }
-    
+
     const result = await register(values)
-    
+
     if (result.success) {
       alert(result.message)
-      navigate("/login")
+      navigate('/login')
     } else {
       alert(result.message)
     }
-    
+
     setSubmitting(false)
   }
 
@@ -45,25 +44,22 @@ function Registration() {
       <SimpleNavbar />
       <div className="flex items-center justify-center p-4 pt-16">
         <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-center gap-8">
-        
-          {/* Image Section */}
           <div className="w-full md:w-1/2 flex justify-center">
-            <img 
-              src={SIGNUP} 
+            <img
+              src={SIGNUP}
               alt="Football"
               className="w-full max-w-sm rounded-2xl shadow-2xl"
             />
           </div>
 
-          {/* Form Section */}
           <div className="w-full md:w-1/2 max-w-md">
-            <Formik 
+            <Formik
               initialValues={initialValues}
               validationSchema={SignupValidation}
               validateOnBlur={false}
               validateOnChange={false}
               onSubmit={handleSubmit}
-            >  
+            >
               {({ errors, isSubmitting }) => (
                 <Form className="bg-black/80 backdrop-blur-lg shadow-2xl shadow-black/50 rounded-2xl p-6 border border-gray-800 hover:border-gray-700 transition-all duration-300">
                   <div className="text-center mb-6">
@@ -71,20 +67,18 @@ function Registration() {
                     <p className="text-gray-400 text-sm">Join us and get started</p>
                   </div>
 
-                  {/* Error Message */}
                   {error && (
                     <div className="mb-4 p-3 bg-red-900/50 border border-red-700 rounded-lg">
                       <p className="text-red-300 text-sm text-center">{error}</p>
                     </div>
                   )}
 
-                  {/* First Name and Last Name in single line - responsive */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div className="relative">
                       <label className="block text-gray-300 text-sm font-semibold mb-2">First Name</label>
-                      <Field 
-                        type='text' 
-                        name='Fname'
+                      <Field
+                        type="text"
+                        name="Fname"
                         className="w-full px-3 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-900/50 text-white placeholder-gray-500 text-sm"
                         placeholder="First name"
                       />
@@ -95,9 +89,9 @@ function Registration() {
 
                     <div className="relative">
                       <label className="block text-gray-300 text-sm font-semibold mb-2">Last Name</label>
-                      <Field 
-                        type='text' 
-                        name='Lname'
+                      <Field
+                        type="text"
+                        name="Lname"
                         className="w-full px-3 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-900/50 text-white placeholder-gray-500 text-sm"
                         placeholder="Last name"
                       />
@@ -107,12 +101,11 @@ function Registration() {
                     </div>
                   </div>
 
-                  {/* Email */}
                   <div className="relative mb-4">
                     <label className="block text-gray-300 text-sm font-semibold mb-2">Email</label>
-                    <Field 
-                      type='email' 
-                      name='email'
+                    <Field
+                      type="email"
+                      name="email"
                       className="w-full px-3 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-900/50 text-white placeholder-gray-500 text-sm"
                       placeholder="Enter your email"
                     />
@@ -121,12 +114,11 @@ function Registration() {
                     </div>
                   </div>
 
-                  {/* Password */}
                   <div className="relative mb-4">
                     <label className="block text-gray-300 text-sm font-semibold mb-2">Password</label>
-                    <Field 
-                      type='password' 
-                      name='password'
+                    <Field
+                      type="password"
+                      name="password"
                       className="w-full px-3 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-900/50 text-white placeholder-gray-500 text-sm"
                       placeholder="Create password"
                     />
@@ -135,12 +127,11 @@ function Registration() {
                     </div>
                   </div>
 
-                  {/* Confirm Password */}
                   <div className="relative mb-6">
                     <label className="block text-gray-300 text-sm font-semibold mb-2">Confirm Password</label>
-                    <Field 
-                      type='password' 
-                      name='cpassword'
+                    <Field
+                      type="password"
+                      name="cpassword"
                       className="w-full px-3 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-900/50 text-white placeholder-gray-500 text-sm"
                       placeholder="Confirm password"
                     />
@@ -149,10 +140,9 @@ function Registration() {
                     </div>
                   </div>
 
-                  {/* Submit Button */}
                   <div className="text-center">
-                    <button 
-                      type='submit'
+                    <button
+                      type="submit"
                       disabled={isSubmitting || loading}
                       className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300 w-full text-sm disabled:cursor-not-allowed"
                     >

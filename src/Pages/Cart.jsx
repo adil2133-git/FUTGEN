@@ -1,4 +1,3 @@
-// Cart.js - Updated with proper price calculation
 import React from 'react';
 import Navbar from '../Components/Navbar';
 import { useCart } from '../Context/CartProvider';
@@ -12,7 +11,7 @@ function Cart() {
     clearCart, 
     getCartTotal,
     getSubTotal,
-    getItemTotal, // Use this instead of manual calculation
+    getItemTotal,
     getCartItemCount 
   } = useCart();
   
@@ -60,7 +59,6 @@ function Cart() {
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Cart Items */}
           <div className="lg:w-2/3">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-3xl font-bold text-gray-900">
@@ -76,12 +74,11 @@ function Cart() {
 
             <div className="space-y-4">
               {cart.map((item) => {
-                const itemTotal = getItemTotal(item); // Use the helper function
+                const itemTotal = getItemTotal(item);
                 
                 return (
                   <div key={item.cartId} className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
                     <div className="flex flex-col sm:flex-row gap-4">
-                      {/* Product Image */}
                       <div className="sm:w-24 sm:h-24 w-full h-48 flex-shrink-0">
                         <img
                           src={item.image}
@@ -93,7 +90,6 @@ function Cart() {
                         />
                       </div>
 
-                      {/* Product Details */}
                       <div className="flex-grow">
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">
                           {item.name}
@@ -101,7 +97,6 @@ function Cart() {
                         <p className="text-gray-600 mb-1">{item.price}</p>
                         <p className="text-gray-500 text-sm">Size: {item.size}</p>
                         
-                        {/* Quantity Controls */}
                         <div className="flex items-center gap-4 mt-3">
                           <span className="text-gray-700 font-medium">Quantity:</span>
                           <div className="flex items-center gap-2">
@@ -122,7 +117,6 @@ function Cart() {
                         </div>
                       </div>
 
-                      {/* Remove Button */}
                       <div className="flex flex-col items-end justify-between">
                         <p className="text-lg font-semibold text-gray-900">
                           ₹{itemTotal.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
@@ -141,7 +135,6 @@ function Cart() {
             </div>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:w-1/3">
             <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 sticky top-4">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Order Summary</h2>

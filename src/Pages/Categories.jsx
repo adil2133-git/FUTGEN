@@ -1,4 +1,3 @@
-// Categories.js - Fixed for your current db.json
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../Api/Axios';
@@ -14,7 +13,6 @@ function Categories() {
   const [selectedCategory, setSelectedCategory] = useState(categoryName || 'all');
   const { addToCart, isInCart } = useCart();
 
-  // Category mapping for display names
   const categoryDisplayNames = {
     tshirts: 'T-SHIRTS',
     jackets: 'JACKETS',
@@ -23,7 +21,6 @@ function Categories() {
     all: 'BROWSE MORE COLLECTIONS'
   };
 
-  // Fetch all products
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -40,7 +37,6 @@ function Categories() {
     fetchProducts();
   }, []);
 
-  // Filter products based on selected category
   useEffect(() => {
     if (categoryName) {
       setSelectedCategory(categoryName);
@@ -63,7 +59,6 @@ function Categories() {
     addToCart(product);
   };
 
-  // Only 4 categories as requested
   const categories = [
     { id: 'all', name: 'ALL COLLECTIONS' },
     { id: 'tshirts', name: 'T-SHIRTS' },
@@ -101,8 +96,6 @@ function Categories() {
       <Navbar />
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          
-          {/* Page Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {categoryDisplayNames[selectedCategory] || 'BROWSE MORE COLLECTIONS'}
@@ -112,7 +105,6 @@ function Categories() {
             </p>
           </div>
 
-          {/* Categories Navigation - Centered with 4 categories */}
           <div className="mb-12">
             <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               {categories.map((category) => (
@@ -138,7 +130,6 @@ function Categories() {
             </div>
           </div>
 
-          {/* Products Grid */}
           <div className="mb-12">
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -204,7 +195,6 @@ function Categories() {
             )}
           </div>
 
-          {/* Category Description */}
           <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               Premium Football Apparel

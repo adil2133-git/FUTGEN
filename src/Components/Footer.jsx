@@ -22,7 +22,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li><Link to="/" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">Home</Link></li>
-              <li><Link to="/products" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">All Products</Link></li>
+              <li><Link to="/product" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">All Products</Link></li>
               <li><Link to="/categories" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">Categories</Link></li>
               <li><Link to="/about" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">About Us</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">Contact Us</Link></li>
@@ -33,10 +33,10 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <h3 className="text-lg font-semibold text-white mb-4">Categories</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">T-SHIRT</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">JACKET</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">SWEATSHIRTS</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">JOGGERS</a></li>
+              <li><a href="/category/tshirts" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">T-SHIRT</a></li>
+              <li><a href="/category/jackets" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">JACKET</a></li>
+              <li><a href="/category/sweatshirts" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">SWEATSHIRTS</a></li>
+              <li><a href="/category/joggers" className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm">JOGGERS</a></li>
             </ul>
           </div>
 

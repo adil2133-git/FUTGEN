@@ -1,4 +1,3 @@
-// AllProduct.js - Updated
 import React, { useState, useEffect } from 'react';
 import { api } from '../Api/Axios';
 import Navbar from '../Components/Navbar';
@@ -13,7 +12,6 @@ function AllProduct() {
   const location = useLocation();
   const { addToCart, isInCart } = useCart();
 
-  // Fetch products from database
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -27,7 +25,6 @@ function AllProduct() {
     }
   };
 
-  // Handle search from URL
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -35,7 +32,7 @@ function AllProduct() {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const searchQuery = searchParams.get('search');
-    
+
     if (searchQuery && products.length > 0) {
       const filtered = products.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -51,7 +48,6 @@ function AllProduct() {
     addToCart(product);
   };
 
-  // ... rest of the component remains the same, just replace 'products' with 'filteredProducts' in the render section
   if (loading) {
     return (
       <>
@@ -77,7 +73,7 @@ function AllProduct() {
       <Navbar />
       <div className="p-8 max-w-7xl mx-auto bg-gray-50 rounded-xl">
         <h2 className="text-3xl font-bold mb-8">EXPLORE</h2>
-        
+
         {location.search && (
           <div className="mb-4">
             <p className="text-gray-600">
@@ -86,7 +82,7 @@ function AllProduct() {
             </p>
           </div>
         )}
-        
+
         <div className="mb-8 last:mb-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {filteredProducts.map((product) => (

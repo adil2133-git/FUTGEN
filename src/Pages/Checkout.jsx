@@ -1,4 +1,3 @@
-// Checkout.js - Updated with UPI Payment Method
 import React, { useState } from 'react';
 import Navbar from '../Components/Navbar';
 import { useCart } from '../Context/CartProvider';
@@ -38,7 +37,6 @@ function Checkout() {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate payment processing
     setTimeout(() => {
       alert('Payment Successful! Your order has been placed.');
       clearCart();
@@ -76,18 +74,14 @@ function Checkout() {
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
         
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Checkout Form */}
           <div className="lg:w-2/3">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Shipping Information */}
               <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-4">Shipping Information</h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      First Name *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
                     <input
                       type="text"
                       name="firstName"
@@ -99,9 +93,7 @@ function Checkout() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Last Name *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
                     <input
                       type="text"
                       name="lastName"
@@ -113,9 +105,7 @@ function Checkout() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
                     <input
                       type="email"
                       name="email"
@@ -127,9 +117,7 @@ function Checkout() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
                     <input
                       type="tel"
                       name="phone"
@@ -141,9 +129,7 @@ function Checkout() {
                   </div>
                   
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Address *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Address *</label>
                     <input
                       type="text"
                       name="address"
@@ -155,9 +141,7 @@ function Checkout() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      City *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
                     <input
                       type="text"
                       name="city"
@@ -169,9 +153,7 @@ function Checkout() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      State *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">State *</label>
                     <input
                       type="text"
                       name="state"
@@ -183,9 +165,7 @@ function Checkout() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      ZIP Code *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">ZIP Code *</label>
                     <input
                       type="text"
                       name="zipCode"
@@ -198,15 +178,12 @@ function Checkout() {
                 </div>
               </div>
 
-              {/* UPI Payment Information */}
               <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-4">UPI Payment</h2>
                 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      UPI ID *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">UPI ID *</label>
                     <input
                       type="text"
                       name="upiId"
@@ -216,9 +193,7 @@ function Checkout() {
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
-                    <p className="text-sm text-gray-500 mt-1">
-                      Enter your UPI ID (e.g., name@paytm, name@ybl, name@okicici)
-                    </p>
+                    <p className="text-sm text-gray-500 mt-1">Enter your UPI ID (e.g., name@paytm, name@ybl, name@okicici)</p>
                   </div>
                   
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
@@ -233,18 +208,10 @@ function Checkout() {
 
                   <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
                     <div className="flex space-x-2">
-                      <img src={GPAY}
-                           alt="Google Pay" 
-                           className="h-8 w-auto" />
-                      <img src={PHONEPE} 
-                           alt="PhonePe" 
-                           className="h-8 w-auto" />
-                      <img src={PAYTM}
-                           alt="Paytm" 
-                           className="h-8 w-auto" />
-                      <img src={BHIM} 
-                           alt="BHIM" 
-                           className="h-8 w-auto" />
+                      <img src={GPAY} alt="Google Pay" className="h-8 w-auto" />
+                      <img src={PHONEPE} alt="PhonePe" className="h-8 w-auto" />
+                      <img src={PAYTM} alt="Paytm" className="h-8 w-auto" />
+                      <img src={BHIM} alt="BHIM" className="h-8 w-auto" />
                     </div>
                     <span className="text-sm text-gray-600">All UPI apps supported</span>
                   </div>
@@ -261,7 +228,6 @@ function Checkout() {
             </form>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:w-1/3">
             <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 sticky top-4">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Order Summary</h2>

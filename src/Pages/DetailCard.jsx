@@ -12,10 +12,8 @@ function DetailCard() {
   const [error, setError] = useState(null);
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
-  
   const { addToCart, isInCart } = useCart();
 
-  // Fetch product details
   const fetchProduct = async () => {
     try {
       const response = await api.get(`/products/${productId}`);
@@ -32,7 +30,6 @@ function DetailCard() {
     fetchProduct();
   }, [productId]);
 
-  // Quantity handlers
   const increaseQuantity = () => {
     setQuantity(prev => prev + 1);
   };
@@ -41,21 +38,17 @@ function DetailCard() {
     setQuantity(prev => (prev > 1 ? prev - 1 : 1));
   };
 
-  // Add to cart function
   const handleAddToCart = () => {
     if (product) {
       addToCart(product, selectedSize, quantity);
-      // Optional: Show success message or notification
       console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Quantity: ${quantity}`);
       alert(`${product.name} added to cart!`);
     }
   };
 
-  // Buy now function
   const handleBuyNow = () => {
     if (product) {
       addToCart(product, selectedSize, quantity);
-      // Navigate to cart page
       navigate('/cart');
     }
   };
@@ -106,7 +99,6 @@ function DetailCard() {
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Product Image - Left Side */}
           <div className="md:w-1/2">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <img 
@@ -120,7 +112,6 @@ function DetailCard() {
             </div>
           </div>
 
-          {/* Product Details - Right Side */}
           <div className="md:w-1/2 space-y-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
@@ -130,7 +121,6 @@ function DetailCard() {
               )}
             </div>
 
-            {/* Size Selection */}
             <div className="space-y-3">
               <h3 className="text-lg font-semibold text-gray-900">Size:</h3>
               <div className="flex gap-3">
@@ -150,7 +140,6 @@ function DetailCard() {
               </div>
             </div>
 
-            {/* Quantity Selector */}
             <div className="space-y-3">
               <h3 className="text-lg font-semibold text-gray-900">Quantity:</h3>
               <div className="flex items-center gap-4">
@@ -170,7 +159,6 @@ function DetailCard() {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button
                 onClick={handleAddToCart}

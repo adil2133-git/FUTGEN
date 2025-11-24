@@ -4,7 +4,7 @@ import LOGIN from '../assets/LOGIN.webp'
 import { useNavigate } from 'react-router-dom'
 import { LoginValidation } from './LoginValidation'
 import SimpleNavbar from '../Components/SimpleNavbar'
-import { useAuth } from '../Context/AuthProvider' // Adjust import path as needed
+import { useAuth } from '../Context/AuthProvider'
 
 function Login() {
   const { login, loading, error, clearError } = useAuth()
@@ -17,13 +17,13 @@ function Login() {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     clearError()
-    
+
     const result = await login(values.email, values.password)
-    
+
     if (result.success) {
       navigate('/')
     }
-    
+
     setSubmitting(false)
   }
 
@@ -32,17 +32,14 @@ function Login() {
       <SimpleNavbar />
       <div className="flex items-center justify-center p-4 pt-16">
         <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-center gap-8">
-        
-          {/* Image Section */}
           <div className="w-full md:w-1/2 flex justify-center">
-            <img 
-              src={LOGIN} 
+            <img
+              src={LOGIN}
               alt="Football Login"
               className="w-full max-w-md rounded-2xl shadow-2xl"
             />
           </div>
 
-          {/* Form Section */}
           <div className="w-full md:w-1/2 max-w-md">
             <Formik
               initialValues={initialValues}
@@ -58,19 +55,17 @@ function Login() {
                     <p className="text-gray-400 text-sm">Sign in to your account</p>
                   </div>
 
-                  {/* Global Error Message */}
                   {error && (
                     <div className="mb-4 p-3 bg-red-900/50 border border-red-700 rounded-lg">
                       <p className="text-red-300 text-sm text-center">{error}</p>
                     </div>
                   )}
 
-                  {/* Email Field */}
                   <div className="mb-4">
                     <label className="block text-gray-300 text-sm font-semibold mb-2">Email</label>
                     <Field
-                      type='email'
-                      name='email'
+                      type="email"
+                      name="email"
                       className="w-full px-3 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-900/50 text-white placeholder-gray-500 text-sm"
                       placeholder="Enter your email"
                     />
@@ -79,12 +74,11 @@ function Login() {
                     )}
                   </div>
 
-                  {/* Password Field */}
                   <div className="mb-4">
                     <label className="block text-gray-300 text-sm font-semibold mb-2">Password</label>
                     <Field
-                      type='password'
-                      name='password'
+                      type="password"
+                      name="password"
                       className="w-full px-3 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 bg-gray-900/50 text-white placeholder-gray-500 text-sm"
                       placeholder="Enter your password"
                     />
@@ -93,11 +87,10 @@ function Login() {
                     )}
                   </div>
 
-                  {/* Remember Me & Forgot Password */}
                   <div className="flex items-center justify-between mb-6 mt-6">
                     <div className="flex items-center">
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         id="remember"
                         className="w-4 h-4 text-red-600 bg-gray-700 border-gray-600 rounded focus:ring-red-500"
                       />
@@ -110,10 +103,9 @@ function Login() {
                     </a>
                   </div>
 
-                  {/* Submit Button */}
                   <div>
-                    <button 
-                      type='submit'
+                    <button
+                      type="submit"
                       disabled={isSubmitting || loading}
                       className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300 w-full text-sm disabled:cursor-not-allowed"
                     >
@@ -121,7 +113,6 @@ function Login() {
                     </button>
                   </div>
 
-                  {/* Sign Up Link */}
                   <div className="text-center mt-4">
                     <p className="text-gray-400 text-xs">
                       Don't have an account? <a href="/signup" className="text-red-500 hover:text-red-400 font-semibold">Sign Up</a>

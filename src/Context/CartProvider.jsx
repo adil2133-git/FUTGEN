@@ -1,16 +1,12 @@
-// CartProvider.js - Fixed Price Parsing
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthProvider';
 
-// Create Context
 export const CartContext = createContext();
 
-// Cart Provider Component
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const { user, isAuthenticated } = useAuth();
 
-  // Load cart from localStorage based on user
   useEffect(() => {
     if (isAuthenticated && user) {
       const userCartKey = `cart_${user.id}`;
@@ -29,7 +25,6 @@ export const CartProvider = ({ children }) => {
     }
   }, [user, isAuthenticated]);
 
-  // Save cart to localStorage whenever cart changes or user changes
   useEffect(() => {
     if (isAuthenticated && user) {
       const userCartKey = `cart_${user.id}`;
@@ -37,20 +32,16 @@ export const CartProvider = ({ children }) => {
     }
   }, [cart, user, isAuthenticated]);
 
-  // Improved price parsing function
   const parsePrice = (priceString) => {
     if (!priceString) return 0;
-    
-    // Handle different price formats: "Rs. 1,999.00", "₹1,999", "1,999.00", "1999"
-    const price = priceString.toString()
-      .replace(/Rs\.|₹|,/g, '') // Remove "Rs.", "₹" and commas
-      .replace(/\s+/g, '') // Remove any whitespace
+    const price = priceString
+      .toString()
+      .replace(/Rs\.|₹|,/g, '')
+      .replace(/\s+/g, '')
       .trim();
-    
     return parseFloat(price) || 0;
   };
 
-  // Add to cart function
   const addToCart = (product, size = 'M', quantity = 1) => {
     if (!isAuthenticated) {
       alert('Please login to add items to cart');
@@ -59,16 +50,12 @@ export const CartProvider = ({ children }) => {
 
     setCart(prevCart => {
       const productId = product.id || product.product_id;
-      
-      const existingItemIndex = prevCart.findIndex(
-        item => {
-          const itemId = item.id || item.product_id;
-          return itemId === productId && item.size === size;
-        }
-      );
-      
+      const existingItemIndex = prevCart.findIndex(item => {
+        const itemId = item.id || item.product_id;
+        return itemId === productId && item.size === size;
+      });
+
       if (existingItemIndex > -1) {
-        // Item exists, update quantity
         const updatedCart = [...prevCart];
         updatedCart[existingItemIndex] = {
           ...updatedCart[existingItemIndex],
@@ -76,7 +63,6 @@ export const CartProvider = ({ children }) => {
         };
         return updatedCart;
       } else {
-        // Item doesn't exist, add new item
         const newItem = {
           ...product,
           id: productId,
@@ -89,12 +75,10 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // Remove from cart
   const removeFromCart = (cartId) => {
     setCart(prevCart => prevCart.filter(item => item.cartId !== cartId));
   };
 
-  // Update cart quantity
   const updateCartQuantity = (cartId, newQuantity) => {
     if (newQuantity <= 0) {
       removeFromCart(cartId);
@@ -110,36 +94,30 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  // Clear cart
   const clearCart = () => {
     setCart([]);
   };
 
-  // Get cart total - Using improved price parsing
   const getCartTotal = () => {
     return cart.reduce((total, item) => {
       const price = parsePrice(item.price);
-      return total + (price * item.quantity);
+      return total + price * item.quantity;
     }, 0);
   };
 
-  // Get subtotal (same as total for now, but can be modified for discounts, etc.)
   const getSubTotal = () => {
     return getCartTotal();
   };
 
-  // Get individual item total
   const getItemTotal = (item) => {
     const price = parsePrice(item.price);
     return price * item.quantity;
   };
 
-  // Get cart item count
   const getCartItemCount = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
-  // Check if product is in cart
   const isInCart = (productId, size = 'M') => {
     return cart.some(item => {
       const itemId = item.id || item.product_id;
@@ -155,10 +133,10 @@ export const CartProvider = ({ children }) => {
     clearCart,
     getCartTotal,
     getSubTotal,
-    getItemTotal, // Add this new function
+    getItemTotal,
     getCartItemCount,
     isInCart,
-    parsePrice // Export for debugging if needed
+    parsePrice
   };
 
   return (
@@ -168,7 +146,6 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use cart context
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {

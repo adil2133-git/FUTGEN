@@ -11,7 +11,6 @@ function Card() {
   const containerRef = useRef(null)
   const navigate = useNavigate()
 
-  // Fetch products from db.json using Axios
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -31,7 +30,6 @@ function Card() {
     const container = containerRef.current
     if (container) {
       const { scrollLeft, scrollWidth, clientWidth } = container
-      
       setShowLeftButton(scrollLeft > 0)
       setShowRightButton(scrollLeft < scrollWidth - clientWidth - 10)
     }
@@ -53,19 +51,16 @@ function Card() {
 
   const addToCart = (productName) => {
     console.log(`Added ${productName} to cart`)
-    // Add your cart logic here
   }
 
   useEffect(() => {
     checkScrollPosition()
     window.addEventListener('resize', checkScrollPosition)
-    
     return () => {
       window.removeEventListener('resize', checkScrollPosition)
     }
   }, [])
 
-  // Update scroll buttons when products load
   useEffect(() => {
     if (products.length > 0) {
       setTimeout(checkScrollPosition, 100)
@@ -86,7 +81,6 @@ function Card() {
   return (
     <div className="p-8 max-w-7xl mx-auto bg-gray-50 rounded-xl">
       <h2 className="text-3xl font-bold mb-8">EXPLORE</h2>
-      
       <div className="relative group">
         <div 
           ref={containerRef}
@@ -124,7 +118,6 @@ function Card() {
           ))}
         </div>
 
-        {/* Left Navigation Button */}
         {showLeftButton && (
           <button 
             onClick={scrollLeft}
@@ -136,7 +129,6 @@ function Card() {
           </button>
         )}
 
-        {/* Right Navigation Button */}
         {showRightButton && (
           <button 
             onClick={scrollRight}
