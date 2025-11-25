@@ -119,6 +119,72 @@
       "image": "src/assets/jacket3.webp",
       "category": "jackets",
       "id": "jac3"
+    },
+    {
+      "product_id": 10,
+      "name": "The Red Devils Collared Sweatshirt",
+      "price": "Rs. 1,999.00",
+      "image": "src/assets/sweat1.webp",
+      "category": "sweatshirts",
+      "id": "sweat1"
+    },
+    {
+      "product_id": 14,
+      "name": "Devils Vintage",
+      "price": "Rs. 1,799.00",
+      "image": "src/assets/pic7.webp",
+      "category": "tshirts",
+      "id": "332"
+    },
+    
+    {
+      "product_id": 12,
+      "name": "Cannon Joggers",
+      "price": "Rs. 1,899.00",
+      "image": "src/assets/jog1.webp",
+      "category": "joggers",
+      "id": "jog1"
+    },
+    {
+      "product_id": 13,
+      "name": "Red Devils Joggers",
+      "price": "Rs. 1,899.00",
+      "image": "src/assets/jog2.webp",
+      "category": "joggers",
+      "id": "jog2"
+    },
+    
+    {
+      "product_id": 15,
+      "name": "Rooney 8-Bit Sweatshirt",
+      "price": "Rs. 2,199.00",
+      "image": "src/assets/sweat4.webp",
+      "category": "sweatshirts",
+      "id": "sweat4"
+    },
+    {
+      "product_id": 16,
+      "name": "Blaugrana Vintage Sweatshirt",
+      "price": "Rs. 2,499.00",
+      "image": "src/assets/sweat3.webp",
+      "category": "sweatshirts",
+      "id": "sweat3"
+    },
+    {
+      "product_id": 11,
+      "name": "The Blaugrana Collared Sweatshirt",
+      "price": "Rs. 1,999.00",
+      "image": "src/assets/sweat2.webp",
+      "category": "sweatshirts",
+      "id": "sweat2"
+    },
+    {
+      "product_id": 17,
+      "name": "Blaugrana Pure Leather Jacket",
+      "price": "Rs. 12,999.00",
+      "image": "src/assets/jacket4.webp",
+      "category": "jackets",
+      "id": "jac4"
     }
   ]
 }

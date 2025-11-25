@@ -9,7 +9,6 @@ function Categories() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(categoryName || 'all');
   const { addToCart, isInCart } = useCart();
 
@@ -22,15 +21,8 @@ function Categories() {
   };
 
   const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const response = await api.get('/products');
-      setProducts(response.data);
-    } catch (err) {
-      console.error('Error fetching products:', err);
-    } finally {
-      setLoading(false);
-    }
+    const response = await api.get('/products');
+    setProducts(response.data);
   };
 
   useEffect(() => {
@@ -66,30 +58,6 @@ function Categories() {
     { id: 'sweatshirts', name: 'SWEATSHIRTS' },
     { id: 'joggers', name: 'JOGGERS' }
   ];
-
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <div className="min-h-screen bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="animate-pulse">
-              <div className="h-8 bg-gray-300 rounded w-1/4 mb-8"></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {[...Array(8)].map((_, index) => (
-                  <div key={index} className="bg-white rounded-xl shadow-lg border border-gray-100 p-4">
-                    <div className="w-full h-64 bg-gray-300 rounded-t-xl mb-4"></div>
-                    <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-                    <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
@@ -177,10 +145,7 @@ function Categories() {
                   No products found in {categoryDisplayNames[selectedCategory]}
                 </h3>
                 <p className="text-gray-500 mb-8">
-                  {selectedCategory === 'sweatshirts' || selectedCategory === 'joggers' 
-                    ? "We're working on adding products to this category. Check back soon!"
-                    : "We're constantly adding new products. Check back soon!"
-                  }
+                  We're constantly adding new products. Check back soon!
                 </p>
                 <button
                   onClick={() => {

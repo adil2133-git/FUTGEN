@@ -12,12 +12,10 @@ function SimpleNavbar() {
     <nav className="bg-black/90 backdrop-blur-lg border-b border-gray-800 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Website Name */}
           <h2 className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             FUTGEN
           </h2>
 
-          {/* Home Button */}
           <button
             onClick={goToHome}
             className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 border border-red-600 transition-all duration-300 group"

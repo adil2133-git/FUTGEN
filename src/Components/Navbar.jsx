@@ -1,4 +1,3 @@
-// Navbar.js - Fixed with clean layout and larger logo
 import React, { useState, useRef, useEffect } from "react";
 import FUTGEN from '../assets/FUTGEN.png'
 import { useNavigate } from 'react-router-dom'
@@ -33,12 +32,10 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
   const { user, isAuthenticated, logout } = useAuth();
   const { getCartItemCount } = useCart();
 
-  // Refs for click outside detection
   const profileRef = useRef(null);
   const searchRef = useRef(null);
   const categoriesRef = useRef(null);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -81,20 +78,11 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
     }
   };
 
-  const handleCategoryClick = (categoryHref) => {
-    navigate(categoryHref);
-    setCategoriesOpen(false);
-    setOpen(false); // Close mobile menu if open
-  };
-
   return (
     <>
-      {/* NAVBAR - Fixed position */}
       <header className="w-full z-50 bg-white backdrop-blur-xl border-b border-white/10 fixed top-0 left-0 right-0">
         <nav className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative h-16 flex items-center justify-between">
-            
-            {/* Left: Hamburger Menu */}
             <div className="flex items-center">
               <button
                 onClick={() => setOpen(true)}
@@ -109,7 +97,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
               </button>
             </div>
 
-            {/* Center: Logo - Increased size */}
             <div className="absolute left-1/2 transform -translate-x-1/2">
               <img
                 src={FUTGEN}
@@ -119,9 +106,7 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
               />
             </div>
 
-            {/* Right: Icons - Search, Profile, Cart */}
             <div className="flex items-center gap-3">
-              {/* Search Button */}
               <div className="relative" ref={searchRef}>
                 <button 
                   aria-label="Search" 
@@ -134,7 +119,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                   </svg>
                 </button>
 
-                {/* Search Bar */}
                 {searchOpen && (
                   <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-[100]">
                     <form onSubmit={handleSearch}>
@@ -159,7 +143,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                 )}
               </div>
 
-              {/* Profile Button with Dropdown */}
               <div className="relative" ref={profileRef}>
                 <button 
                   aria-label="Profile" 
@@ -172,7 +155,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                   </svg>
                 </button>
                 
-                {/* Profile Dropdown */}
                 {profileOpen && isAuthenticated && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-1 z-[100]">
                     <div className="px-4 py-2 border-b border-gray-100">
@@ -189,7 +171,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                 )}
               </div>
 
-              {/* Cart Button with Count */}
               <button 
                 aria-label="Cart" 
                 className="p-2 rounded-full hover:bg-gray-100 transition relative"
@@ -211,17 +192,14 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
         </nav>
       </header>
 
-      {/* Add padding to body content to account for fixed navbar */}
       <div className="h-16"></div>
 
-      {/* BACKDROP for mobile menu */}
       <div
         className={`fixed inset-0 bg-black/60 z-40 transition-opacity ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
         onClick={() => setOpen(false)}
         aria-hidden={!open}
       />
 
-      {/* DRAWER - Mobile Menu */}
       <aside
         className={`fixed left-0 top-0 bottom-0 w-80 max-w-[85%] z-[100] transform transition-transform duration-300 ease-in-out shadow-2xl
                     ${open ? "translate-x-0" : "-translate-x-full"}
@@ -231,7 +209,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
         aria-hidden={!open}
       >
         <div className="h-full flex flex-col">
-          {/* Header with close button */}
           <div className="px-6 py-5 border-b border-gray-200 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">Menu</h2>
             <button
@@ -246,7 +223,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
             </button>
           </div>
 
-          {/* Navigation Content */}
           <div className="flex-1 overflow-auto py-4">
             <ul className="space-y-1">
               {menuItems.map((item, idx) => (
@@ -267,7 +243,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                         </svg>
                       </button>
                       
-                      {/* Mobile submenu - FIXED */}
                       {categoriesOpen && (
                         <div className="bg-gray-50 py-2">
                           {item.subItems.map((subItem, subIdx) => (
@@ -305,7 +280,6 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
             </ul>
           </div>
 
-          {/* User info at bottom if logged in */}
           {isAuthenticated && user && (
             <div className="border-t border-gray-200 p-6">
               <div className="flex items-center space-x-3">

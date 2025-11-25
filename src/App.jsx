@@ -1,4 +1,3 @@
-// App.js - Fixed Routes
 import { useState } from 'react'
 import './App.css'
 import Registration from './Authentication/Registration'

@@ -8,22 +8,13 @@ function DetailCard() {
   const { productId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
   const { addToCart, isInCart } = useCart();
 
   const fetchProduct = async () => {
-    try {
-      const response = await api.get(`/products/${productId}`);
-      setProduct(response.data);
-      setLoading(false);
-    } catch (err) {
-      setError('Product not found');
-      setLoading(false);
-      console.error('Error fetching product:', err);
-    }
+    const response = await api.get(`/products/${productId}`);
+    setProduct(response.data);
   };
 
   useEffect(() => {
@@ -53,46 +44,7 @@ function DetailCard() {
     }
   };
 
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="animate-pulse">
-            <div className="flex flex-col md:flex-row gap-8">
-              <div className="md:w-1/2">
-                <div className="w-full h-96 bg-gray-300 rounded-lg"></div>
-              </div>
-              <div className="md:w-1/2 space-y-4">
-                <div className="h-8 bg-gray-300 rounded w-3/4"></div>
-                <div className="h-6 bg-gray-300 rounded w-1/4"></div>
-                <div className="h-6 bg-gray-300 rounded w-1/2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  if (error || !product) {
-    return (
-      <>
-        <Navbar />
-        <div className="max-w-7xl mx-auto px-4 py-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-800">{error || 'Product not found'}</h2>
-          <button 
-            onClick={() => navigate('/')}
-            className="mt-4 bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-          >
-            Back to Products
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  const isProductInCart = isInCart(product.id, selectedSize);
+  const isProductInCart = isInCart(product?.id, selectedSize);
 
   return (
     <>
@@ -102,8 +54,8 @@ function DetailCard() {
           <div className="md:w-1/2">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <img 
-                src={`http://localhost:5173/${product.image}`} 
-                alt={product.name}
+                src={`http://localhost:5173/${product?.image}`} 
+                alt={product?.name}
                 className="w-full h-auto object-cover"
                 onError={(e) => {
                   e.target.src = 'https://via.placeholder.com/600x600?text=Image+Not+Found';
@@ -114,9 +66,9 @@ function DetailCard() {
 
           <div className="md:w-1/2 space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-              <p className="text-2xl font-semibold text-gray-900">{product.price}</p>
-              {product.category && (
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">{product?.name}</h1>
+              <p className="text-2xl font-semibold text-gray-900">{product?.price}</p>
+              {product?.category && (
                 <p className="text-gray-600 mt-1">{product.category}</p>
               )}
             </div>
