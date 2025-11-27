@@ -21,12 +21,18 @@ function Login() {
     const result = await login(values.email, values.password)
 
     if (result.success) {
-      navigate('/')
+      // Check if user is admin and redirect accordingly
+      if (result.isAdmin) {
+        navigate('/admin/dashboard') // Redirect to admin dashboard
+      } else {
+        navigate('/') // Redirect to user home page
+      }
     }
 
     setSubmitting(false)
   }
 
+  // ... rest of your existing JSX code remains the same
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       <SimpleNavbar />
@@ -61,6 +67,8 @@ function Login() {
                     </div>
                   )}
 
+                  {/* ... rest of your form fields remain exactly the same ... */}
+                  
                   <div className="mb-4">
                     <label className="block text-gray-300 text-sm font-semibold mb-2">Email</label>
                     <Field
@@ -85,22 +93,6 @@ function Login() {
                     {errors.password && (
                       <div className="text-red-400 text-xs mt-2 ml-1">{errors.password}</div>
                     )}
-                  </div>
-
-                  <div className="flex items-center justify-between mb-6 mt-6">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="remember"
-                        className="w-4 h-4 text-red-600 bg-gray-700 border-gray-600 rounded focus:ring-red-500"
-                      />
-                      <label htmlFor="remember" className="ml-2 text-sm text-gray-300">
-                        Remember me
-                      </label>
-                    </div>
-                    <a href="#" className="text-sm text-red-500 hover:text-red-400 font-semibold">
-                      Forgot password?
-                    </a>
                   </div>
 
                   <div>

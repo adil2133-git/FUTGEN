@@ -3,6 +3,7 @@ import FUTGEN from '../assets/FUTGEN.png'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../Context/AuthProvider'
 import { useCart } from '../Context/CartProvider'
+import { useWishlist } from '../Context/WishlistProvider'
 
 const menuItems = [
   { label: "Home", href: "/" },
@@ -31,6 +32,7 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
   const { getCartItemCount } = useCart();
+  const { getWishlistCount } = useWishlist();
 
   const profileRef = useRef(null);
   const searchRef = useRef(null);
@@ -80,14 +82,15 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
 
   return (
     <>
-      <header className="w-full z-50 bg-white backdrop-blur-xl border-b border-white/10 fixed top-0 left-0 right-0">
+      <header className="w-full z-50 bg-white backdrop-blur-xl border-b border-gray-200 fixed top-0 left-0 right-0">
         <nav className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative h-16 flex items-center justify-between">
-            <div className="flex items-center">
+            {/* Left Section - Menu Button */}
+            <div className="flex items-center flex-1">
               <button
                 onClick={() => setOpen(true)}
                 aria-label="Open menu"
-                className="p-2 hover:opacity-70 transition"
+                className="p-2 hover:bg-gray-100 rounded-full transition"
               >
                 <svg className="w-6 h-6 text-[#091224]" viewBox="0 0 24 24" fill="none">
                   <path d="M4 7h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -97,30 +100,35 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
               </button>
             </div>
 
-            <div className="absolute left-1/2 transform -translate-x-1/2">
-              <img
-                src={FUTGEN}
-                alt="Logo"
-                className="h-16 md:h-20 object-contain cursor-pointer"
-                onClick={() => navigate('/')}
-              />
+            {/* Center Section - Logo */}
+            <div className="flex items-center justify-center flex-1">
+              <div className="absolute left-1/2 transform -translate-x-1/2">
+                <img
+                  src={FUTGEN}
+                  alt="Logo"
+                  className="h-12 md:h-16 lg:h-20 object-contain cursor-pointer transition-all duration-300"
+                  onClick={() => navigate('/')}
+                />
+              </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="relative" ref={searchRef}>
+            {/* Right Section - Icons */}
+            <div className="flex items-center justify-end flex-1 gap-1 sm:gap-2">
+              {/* Search Button - Hidden on smallest screens, visible from sm */}
+              <div className="relative hidden sm:block" ref={searchRef}>
                 <button 
                   aria-label="Search" 
-                  className="p-2 rounded-full hover:bg-gray-100 transition relative"
+                  className="p-2 rounded-full hover:bg-gray-100 transition"
                   onClick={() => setSearchOpen(!searchOpen)}
                 >
-                  <svg className="w-6 h-6 text-[#091224]" viewBox="0 0 24 24" fill="none">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#091224]" viewBox="0 0 24 24" fill="none">
                     <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="2" />
                   </svg>
                 </button>
 
                 {searchOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-[100]">
+                  <div className="absolute top-full right-0 mt-2 w-72 sm:w-80 bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-[100]">
                     <form onSubmit={handleSearch}>
                       <div className="flex gap-2">
                         <input
@@ -128,12 +136,12 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
                           placeholder="Search products..."
-                          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                          className="flex-1 px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                           autoFocus
                         />
                         <button
                           type="submit"
-                          className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm"
+                          className="bg-red-600 text-white px-3 py-2 text-sm rounded-lg hover:bg-red-700 transition-colors"
                         >
                           Search
                         </button>
@@ -143,13 +151,67 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                 )}
               </div>
 
+              {/* Mobile Search Button - Visible only on small screens */}
+              <div className="relative sm:hidden" ref={searchRef}>
+                <button 
+                  aria-label="Search" 
+                  className="p-2 rounded-full hover:bg-gray-100 transition"
+                  onClick={() => setSearchOpen(!searchOpen)}
+                >
+                  <svg className="w-5 h-5 text-[#091224]" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                </button>
+
+                {searchOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 p-3 z-[100]">
+                    <form onSubmit={handleSearch}>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          placeholder="Search products..."
+                          className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                          autoFocus
+                        />
+                        <button
+                          type="submit"
+                          className="bg-red-600 text-white px-3 py-2 text-sm rounded-lg hover:bg-red-700 transition-colors"
+                        >
+                          Go
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
+              </div>
+
+              {/* Wishlist Button */}
+              <button 
+                aria-label="Wishlist" 
+                className="p-2 rounded-full hover:bg-gray-100 transition relative"
+                onClick={() => navigate('/wishlist')}
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#091224]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                {getWishlistCount() > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">
+                    {getWishlistCount()}
+                  </span>
+                )}
+              </button>
+
+              {/* Profile Button */}
               <div className="relative" ref={profileRef}>
                 <button 
                   aria-label="Profile" 
                   className="p-2 rounded-full hover:bg-gray-100 transition"
                   onClick={handleProfileClick}
                 >
-                  <svg className="w-6 h-6 text-[#091224]" viewBox="0 0 24 24" fill="none">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#091224]" viewBox="0 0 24 24" fill="none">
                     <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" strokeWidth="2" />
                     <path d="M4 20a8 8 0 0 1 16 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   </svg>
@@ -162,6 +224,24 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                       <p className="text-xs text-gray-500">{user.email}</p>
                     </div>
                     <button
+                      onClick={() => {
+                        navigate('/orders');
+                        setProfileOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors border-b border-gray-100"
+                    >
+                      Your Orders
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigate('/wishlist');
+                        setProfileOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors border-b border-gray-100"
+                    >
+                      Your Wishlist
+                    </button>
+                    <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
                     >
@@ -171,18 +251,19 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                 )}
               </div>
 
+              {/* Cart Button */}
               <button 
                 aria-label="Cart" 
                 className="p-2 rounded-full hover:bg-gray-100 transition relative"
                 onClick={() => navigate('/cart')}
               >
-                <svg className="w-6 h-6 text-[#091224]" viewBox="0 0 24 24" fill="none">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#091224]" viewBox="0 0 24 24" fill="none">
                   <path d="M3 3h2l.9 2M7 13h10l4-8H5.4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <circle cx="10" cy="20" r="1" stroke="currentColor" strokeWidth="2" />
                   <circle cx="18" cy="20" r="1" stroke="currentColor" strokeWidth="2" />
                 </svg>
                 {getCartItemCount() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center">
                     {getCartItemCount()}
                   </span>
                 )}
@@ -277,6 +358,34 @@ export default function Navbar({ logoSrc = "/logo.png" }) {
                   )}
                 </li>
               ))}
+              
+              {/* Your Orders Menu Item - Only show when authenticated */}
+              {isAuthenticated && (
+                <>
+                  <li>
+                    <button
+                      onClick={() => {
+                        navigate('/orders');
+                        setOpen(false);
+                      }}
+                      className="w-full text-left px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-colors"
+                    >
+                      Your Orders
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => {
+                        navigate('/wishlist');
+                        setOpen(false);
+                      }}
+                      className="w-full text-left px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 transition-colors"
+                    >
+                      Your Wishlist
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
 

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../Api/Axios';
 import Navbar from '../Components/Navbar';
 import { useCart } from '../Context/CartProvider';
+import { useWishlist } from '../Context/WishlistProvider';
 
 function Categories() {
   const { categoryName } = useParams();
@@ -11,6 +12,7 @@ function Categories() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(categoryName || 'all');
   const { addToCart, isInCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   const categoryDisplayNames = {
     tshirts: 'T-SHIRTS',
@@ -49,6 +51,15 @@ function Categories() {
   const handleAddToCart = (e, product) => {
     e.stopPropagation();
     addToCart(product);
+  };
+
+  const handleWishlistClick = (e, product) => {
+    e.stopPropagation();
+    if (isInWishlist(product.id)) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
   };
 
   const categories = [
@@ -116,6 +127,24 @@ function Categories() {
                           e.target.src = 'https://via.placeholder.com/300x300?text=Image+Not+Found';
                         }}
                       />
+                      
+                      {/* Wishlist Button */}
+                      <button 
+                        onClick={(e) => handleWishlistClick(e, product)}
+                        className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors opacity-0 group-hover/card:opacity-100"
+                      >
+                        <svg 
+                          className={`w-5 h-5 ${isInWishlist(product.id) ? 'text-red-500 fill-current' : 'text-gray-600'}`} 
+                          viewBox="0 0 20 20"
+                          fill={isInWishlist(product.id) ? "currentColor" : "none"}
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        >
+                          <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+
+                      {/* Quick Add Button */}
                       <button 
                         onClick={(e) => handleAddToCart(e, product)}
                         className={`absolute bottom-4 right-4 px-4 py-2 rounded-full text-sm font-medium opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 ${

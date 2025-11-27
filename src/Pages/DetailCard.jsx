@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../Api/Axios';
 import Navbar from '../Components/Navbar';
 import { useCart } from '../Context/CartProvider';
+import { useWishlist } from '../Context/WishlistProvider';
 
 function DetailCard() {
   const { productId } = useParams();
@@ -11,6 +12,7 @@ function DetailCard() {
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
   const { addToCart, isInCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   const fetchProduct = async () => {
     const response = await api.get(`/products/${productId}`);
@@ -33,7 +35,6 @@ function DetailCard() {
     if (product) {
       addToCart(product, selectedSize, quantity);
       console.log(`Added to cart: ${product.name}, Size: ${selectedSize}, Quantity: ${quantity}`);
-      alert(`${product.name} added to cart!`);
     }
   };
 
@@ -44,7 +45,18 @@ function DetailCard() {
     }
   };
 
+  const handleWishlistClick = () => {
+    if (product) {
+      if (isInWishlist(product.id)) {
+        removeFromWishlist(product.id);
+      } else {
+        addToWishlist(product);
+      }
+    }
+  };
+
   const isProductInCart = isInCart(product?.id, selectedSize);
+  const isProductInWishlist = isInWishlist(product?.id);
 
   return (
     <>
@@ -109,6 +121,29 @@ function DetailCard() {
                   +
                 </button>
               </div>
+            </div>
+
+            {/* Wishlist Button */}
+            <div className="flex items-center gap-4 pt-4">
+              <button
+                onClick={handleWishlistClick}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                  isProductInWishlist
+                    ? 'bg-red-100 text-red-600 hover:bg-red-200'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                <svg 
+                  className={`w-5 h-5 ${isProductInWishlist ? 'fill-current' : ''}`} 
+                  viewBox="0 0 20 20"
+                  fill={isProductInWishlist ? "currentColor" : "none"}
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                </svg>
+                {isProductInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
+              </button>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">

@@ -34,26 +34,33 @@ export const AuthProvider = ({ children }) => {
     setError('');
   };
 
+  // In your existing AuthContext, update the login function:
+
   const login = async (email, password) => {
     setLoading(true);
     setError('');
-
+  
     try {
       const response = await api.get('/users');
       const users = response.data;
-
+    
       const user = users.find(u => u.email === email && u.password === password);
-
+    
       if (user) {
         const { password: _, ...userWithoutPassword } = user;
-
+      
         localStorage.setItem('user', JSON.stringify(userWithoutPassword));
         localStorage.setItem('isAuthenticated', 'true');
-
+        localStorage.setItem('userRole', user.role || 'user');
+      
         setUser(userWithoutPassword);
         setIsAuthenticated(true);
-
-        return { success: true, user: userWithoutPassword };
+      
+        return { 
+          success: true, 
+          user: userWithoutPassword,
+          isAdmin: user.role === 'admin' // Return admin status for routing
+        };
       } else {
         setError('Invalid email or password');
         return { success: false };

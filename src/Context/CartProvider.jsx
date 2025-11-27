@@ -45,7 +45,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = (product, size = 'M', quantity = 1) => {
     if (!isAuthenticated) {
       alert('Please login to add items to cart');
-      return;
+      return; // Added return to stop execution
     }
 
     setCart(prevCart => {

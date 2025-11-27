@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Navbar from '../Components/Navbar';
 import { useCart } from '../Context/CartProvider';
+import { useAuth } from '../Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../Api/Axios';
 import GPAY from '../assets/gpay.png'
 import PHONEPE from '../assets/phonepe.png'
 import PAYTM from '../assets/paytm.png'
@@ -9,6 +11,7 @@ import BHIM from '../assets/bhim.png'
 
 function Checkout() {
   const { cart, getCartTotal, clearCart, getItemTotal } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
@@ -33,16 +36,61 @@ function Checkout() {
     }));
   };
 
+  const createOrder = async () => {
+    const orderData = {
+      id: Date.now().toString(),
+      orderNumber: `FUT-${Date.now()}`,
+      userId: user?.id,
+      customerName: `${formData.firstName} ${formData.lastName}`,
+      customerEmail: formData.email,
+      items: cart.map(item => ({
+        productId: item.id,
+        name: item.name,
+        price: item.price,
+        size: item.size,
+        quantity: item.quantity,
+        image: item.image
+      })),
+      shippingAddress: {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode
+      },
+      total: `Rs. ${getCartTotal().toLocaleString('en-IN', { maximumFractionDigits: 2 })}`,
+      status: 'pending',
+      paymentMethod: 'upi',
+      paymentStatus: 'paid',
+      upiId: formData.upiId,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    await api.post('/orders', orderData);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
-      alert('Payment Successful! Your order has been placed.');
+    try {
+      // Create order in database
+      await createOrder();
+      
+      // Clear cart and show success message
       clearCart();
-      setLoading(false);
+      alert('Payment Successful! Your order has been placed.');
       navigate('/');
-    }, 2000);
+    } catch (error) {
+      console.error('Error creating order:', error);
+      alert('Error placing order. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (cart.length === 0) {
