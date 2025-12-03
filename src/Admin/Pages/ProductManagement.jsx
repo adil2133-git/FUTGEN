@@ -38,11 +38,11 @@ function ProductManagement() {
 
   useEffect(() => { fetchProducts(); }, []);
 
-  useEffect(() => {
-    let filtered = products.filter(product => 
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedCategory === 'all' || product.category === selectedCategory)
-    );
+    useEffect(() => {
+      let filtered = products.filter(product => 
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (selectedCategory === 'all' || product.category === selectedCategory)
+      );
 
     filtered = [...filtered].sort((a, b) => {
       if (sortBy === 'name') return a.name.localeCompare(b.name);

@@ -21,9 +21,14 @@ function Login() {
     const result = await login(values.email, values.password)
 
     if (result.success) {
+      // Store user role in localStorage for future checks
+      if (result.user?.role) {
+        localStorage.setItem('userRole', result.user.role);
+      }
+      
       // Check if user is admin and redirect accordingly
       if (result.isAdmin) {
-        navigate('/admin/dashboard') // Redirect to admin dashboard
+        navigate('/admin/home') // Redirect to admin home
       } else {
         navigate('/') // Redirect to user home page
       }
@@ -32,7 +37,6 @@ function Login() {
     setSubmitting(false)
   }
 
-  // ... rest of your existing JSX code remains the same
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       <SimpleNavbar />
@@ -67,8 +71,6 @@ function Login() {
                     </div>
                   )}
 
-                  {/* ... rest of your form fields remain exactly the same ... */}
-                  
                   <div className="mb-4">
                     <label className="block text-gray-300 text-sm font-semibold mb-2">Email</label>
                     <Field

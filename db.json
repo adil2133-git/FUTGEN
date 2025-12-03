@@ -26,7 +26,8 @@
       "email": "ayad12@gamil.com",
       "password": "@Ayad1234",
       "cpassword": "@Ayad1234",
-      "role": "user"
+      "role": "user",
+      "blocked": true
     },
     {
       "id": "a16b",
@@ -59,7 +60,8 @@
       "lastName": "aabdul",
       "email": "abdul111@gmail.com",
       "password": "asdfgh",
-      "role": "user"
+      "role": "user",
+      "blocked": true
     },
     {
       "id": "admin1",
@@ -208,11 +210,11 @@
       "id": "jac4"
     },
     {
-      "id": "1764171023557",
       "name": "Gunners Beige Vintage",
-      "price": "Rs 1,699.00",
+      "price": "Rs. 1,699.00",
       "category": "tshirts",
-      "image": "src/assets/pic8.webp"
+      "image": "src/assets/pic8.webp",
+      "id": "1764171023557"
     }
   ],
   "carts": [
@@ -292,12 +294,12 @@
         "zipCode": "671322"
       },
       "total": "Rs. 2,499",
-      "status": "cancelled",
+      "status": "shipped",
       "paymentMethod": "upi",
       "paymentStatus": "paid",
       "upiId": "adilaboobacker2005@okaxis",
       "createdAt": "2025-11-26T13:42:06.677Z",
-      "updatedAt": "2025-11-26T14:55:15.072Z"
+      "updatedAt": "2025-11-28T10:03:39.663Z"
     },
     {
       "id": "1764165245501",
@@ -389,7 +391,75 @@
       "paymentStatus": "paid",
       "upiId": "adfsgardgatsdfgadffffff@oksfnc",
       "createdAt": "2025-11-26T14:53:57.604Z",
-      "updatedAt": "2025-11-26T14:54:57.244Z"
+      "updatedAt": "2025-12-02T11:13:52.849Z"
+    },
+    {
+      "id": "1764672601046",
+      "orderNumber": "FUT-1764672601046",
+      "userId": "1763879504593",
+      "customerName": "adil AADHYY",
+      "customerEmail": "adilaadi340@gmail.com",
+      "items": [
+        {
+          "productId": "60ab",
+          "name": "Catalan Vintage",
+          "price": "Rs. 1,799.00",
+          "size": "M",
+          "quantity": 1,
+          "image": "src/assets/pic2.webp"
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "adil",
+        "lastName": "AADHYY",
+        "email": "adilaadi340@gmail.com",
+        "phone": "07994931322",
+        "address": "sonkal",
+        "city": "uppala",
+        "state": "kerala",
+        "zipCode": "671322"
+      },
+      "total": "Rs. 1,799",
+      "status": "pending",
+      "paymentMethod": "upi",
+      "paymentStatus": "paid",
+      "upiId": "adilaboobacker2005@okaxis",
+      "createdAt": "2025-12-02T10:50:01.046Z",
+      "updatedAt": "2025-12-02T10:50:01.070Z"
+    },
+    {
+      "id": "1764674177448",
+      "orderNumber": "FUT-1764674177448",
+      "userId": "admin1",
+      "customerName": "rifana sherin",
+      "customerEmail": "rifanasherin80@gmail.com",
+      "items": [
+        {
+          "productId": "sweat1",
+          "name": "The Red Devils Collared Sweatshirt",
+          "price": "Rs. 1,999.00",
+          "size": "M",
+          "quantity": 2,
+          "image": "src/assets/sweat1.webp"
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "rifana",
+        "lastName": "sherin",
+        "email": "rifanasherin80@gmail.com",
+        "phone": "1234567890",
+        "address": "mechery",
+        "city": "palakkad",
+        "state": "kerala",
+        "zipCode": "679308"
+      },
+      "total": "Rs. 3,998",
+      "status": "pending",
+      "paymentMethod": "upi",
+      "paymentStatus": "paid",
+      "upiId": "rahoof123@okaxis",
+      "createdAt": "2025-12-02T11:16:17.449Z",
+      "updatedAt": "2025-12-02T11:16:17.449Z"
     }
   ]
 }
