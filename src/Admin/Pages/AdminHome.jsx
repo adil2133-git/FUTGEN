@@ -17,7 +17,6 @@ function AdminHome() {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      // Fetch all data in parallel
       const [ordersRes, productsRes, usersRes] = await Promise.all([
         api.get('/orders'),
         api.get('/products'),
@@ -28,7 +27,6 @@ function AdminHome() {
       const products = productsRes.data;
       const users = usersRes.data;
 
-      // Calculate stats
       const totalRevenue = orders
         .filter(order => order.status === 'delivered')
         .reduce((sum, order) => {
@@ -36,7 +34,7 @@ function AdminHome() {
           return sum + parseFloat(price) || 0;
         }, 0);
 
-      const pendingOrders = orders.filter(order => 
+      const pendingOrders = orders.filter(order =>
         ['pending', 'confirmed'].includes(order.status)
       ).length;
 
@@ -99,15 +97,12 @@ function AdminHome() {
   return (
     <Dashboard>
       <div className="p-6">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
           <p className="text-gray-600 mt-2">Welcome to your administration panel</p>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Total Revenue */}
           <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
             <div className="flex items-center justify-between">
               <div>
@@ -123,7 +118,6 @@ function AdminHome() {
             <p className="text-xs text-gray-500 mt-2">From delivered orders</p>
           </div>
 
-          {/* Total Orders */}
           <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
             <div className="flex items-center justify-between">
               <div>
@@ -141,7 +135,6 @@ function AdminHome() {
             </Link>
           </div>
 
-          {/* Total Products */}
           <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-500">
             <div className="flex items-center justify-between">
               <div>
@@ -159,7 +152,6 @@ function AdminHome() {
             </Link>
           </div>
 
-          {/* Total Users */}
           <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
             <div className="flex items-center justify-between">
               <div>
@@ -178,9 +170,7 @@ function AdminHome() {
           </div>
         </div>
 
-        {/* Recent Activity Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Recent Orders */}
           <div className="bg-white rounded-lg shadow-md">
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">
@@ -214,7 +204,6 @@ function AdminHome() {
             </div>
           </div>
 
-          {/* Quick Actions */}
           <div className="bg-white rounded-lg shadow-md">
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-lg font-semibold text-gray-800">Quick Actions</h2>

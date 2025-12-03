@@ -27,7 +27,7 @@
       "password": "@Ayad1234",
       "cpassword": "@Ayad1234",
       "role": "user",
-      "blocked": true
+      "blocked": false
     },
     {
       "id": "a16b",
@@ -52,7 +52,8 @@
       "lastName": "rahman",
       "email": "abdul12@gmail.com",
       "password": "121212",
-      "role": "user"
+      "role": "user",
+      "blocked": true
     },
     {
       "id": "1764078398952",
@@ -61,7 +62,7 @@
       "email": "abdul111@gmail.com",
       "password": "asdfgh",
       "role": "user",
-      "blocked": true
+      "blocked": false
     },
     {
       "id": "admin1",
@@ -106,11 +107,10 @@
       "id": "cdee"
     },
     {
-      "product_id": 9,
       "name": "Argentina Pure Leather Jacket",
-      "price": "Rs. 12,999.00",
-      "image": "src/assets/jacket3.webp",
+      "price": "Rs. 12,99.00",
       "category": "jackets",
+      "image": "src/assets/jacket3.webp",
       "id": "jac3"
     },
     {
@@ -215,6 +215,13 @@
       "category": "tshirts",
       "image": "src/assets/pic8.webp",
       "id": "1764171023557"
+    },
+    {
+      "id": "1764755199216",
+      "name": "tshirt",
+      "price": "Rs. 2,999.00",
+      "category": "tshirts",
+      "image": "src/assets/pic1.webp"
     }
   ],
   "carts": [
@@ -460,6 +467,40 @@
       "upiId": "rahoof123@okaxis",
       "createdAt": "2025-12-02T11:16:17.449Z",
       "updatedAt": "2025-12-02T11:16:17.449Z"
+    },
+    {
+      "id": "1764743763749",
+      "orderNumber": "FUT-1764743763749",
+      "userId": "8480",
+      "customerName": "adil AADHYY",
+      "customerEmail": "adilaadi340@gmail.com",
+      "items": [
+        {
+          "productId": "sweat1",
+          "name": "The Red Devils Collared Sweatshirt",
+          "price": "Rs. 1,999.00",
+          "size": "M",
+          "quantity": 1,
+          "image": "src/assets/sweat1.webp"
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "adil",
+        "lastName": "AADHYY",
+        "email": "adilaadi340@gmail.com",
+        "phone": "07994931322",
+        "address": "sonkal",
+        "city": "uppala",
+        "state": "kerala",
+        "zipCode": "671322"
+      },
+      "total": "Rs. 1,999",
+      "status": "cancelled",
+      "paymentMethod": "upi",
+      "paymentStatus": "paid",
+      "upiId": "adilaboobacker2005@okaxis",
+      "createdAt": "2025-12-03T06:36:03.749Z",
+      "updatedAt": "2025-12-03T09:43:43.956Z"
     }
   ]
 }

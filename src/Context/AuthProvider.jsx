@@ -19,7 +19,16 @@ export const AuthProvider = ({ children }) => {
       const storedAuth = localStorage.getItem('isAuthenticated');
 
       if (storedUser && storedAuth === 'true') {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        
+        // Check if stored user is blocked
+        if (parsedUser.blocked === true) {
+          logout();
+          setError('Your account has been blocked. Please contact support.');
+          return;
+        }
+        
+        setUser(parsedUser);
         setIsAuthenticated(true);
       }
     } catch (error) {
@@ -34,8 +43,6 @@ export const AuthProvider = ({ children }) => {
     setError('');
   };
 
-  // In your existing AuthContext, update the login function:
-
   const login = async (email, password) => {
     setLoading(true);
     setError('');
@@ -47,6 +54,15 @@ export const AuthProvider = ({ children }) => {
       const user = users.find(u => u.email === email && u.password === password);
     
       if (user) {
+        // Check if user is blocked
+        if (user.blocked === true) {
+          setError('Your account has been blocked. Please contact support.');
+          return { 
+            success: false, 
+            blocked: true
+          };
+        }
+        
         const { password: _, ...userWithoutPassword } = user;
       
         localStorage.setItem('user', JSON.stringify(userWithoutPassword));
@@ -59,7 +75,7 @@ export const AuthProvider = ({ children }) => {
         return { 
           success: true, 
           user: userWithoutPassword,
-          isAdmin: user.role === 'admin' // Return admin status for routing
+          isAdmin: user.role === 'admin'
         };
       } else {
         setError('Invalid email or password');
@@ -90,11 +106,13 @@ export const AuthProvider = ({ children }) => {
       }
 
       const newUser = {
-        id: Date.now(),
-        firstName: userData.Fname,
-        lastName: userData.Lname,
+        id: Date.now().toString(),
+        Fname: userData.Fname,
+        Lname: userData.Lname,
         email: userData.email,
-        password: userData.password
+        password: userData.password,
+        blocked: false,
+        role: 'user'
       };
 
       await api.post('/users', newUser);
@@ -119,6 +137,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('userRole');
     setUser(null);
     setIsAuthenticated(false);
     setError('');

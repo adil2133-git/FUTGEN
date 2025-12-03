@@ -154,18 +154,19 @@ const Dashboard = ({ children }) => {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Navbar */}
         <header className="bg-white shadow-sm border-b border-gray-200">
-          <div className="flex items-center justify-between px-6 py-4">
-            <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-            <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-4 gap-3 sm:gap-0">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Dashboard</h1>
+            <div className="flex items-center">
               <span className="text-sm text-gray-600">
-                Welcome, {user?.firstName} {user?.lastName}
+                Welcome, <span className="hidden sm:inline">{user?.firstName} {user?.lastName}</span>
+                <span className="sm:hidden font-medium">{user?.firstName?.charAt(0)}.{user?.lastName?.charAt(0)}.</span>
               </span>
             </div>
           </div>
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-4 sm:p-6">
           {children}
         </main>
       </div>
